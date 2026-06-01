@@ -1,0 +1,490 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Checklist de Aulas Dadas | URE Caieiras - Seduc SP</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(145deg, #0a2f6c 0%, #041a3a 100%);
+    min-height: 100vh;
+    padding: 20px;
+    color: #1e293b;
+  }
+  .main-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    background: #0f1a24;
+    border-radius: 48px;
+    padding: 20px;
+    box-shadow: 0 30px 35px rgba(0,0,0,0.5), inset 0 1px 4px rgba(255,255,200,0.1);
+    border: 1px solid #d32f2f;
+  }
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(10, 47, 108, 0.85);
+    backdrop-filter: blur(4px);
+    padding: 12px 24px;
+    border-radius: 60px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+  .logo-area {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .logo-area img {
+    height: 55px;
+    width: auto;
+    border-radius: 12px;
+    background: white;
+    padding: 4px;
+    object-fit: contain;
+  }
+  .logo-text {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #ffec9e;
+    line-height: 1.3;
+  }
+  .title-badge {
+    background: #d32f2f;
+    color: white;
+    padding: 6px 18px;
+    border-radius: 3rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    font-size: 0.85rem;
+  }
+  .card {
+    background: white;
+    border-radius: 32px;
+    padding: 1.5rem;
+    margin-bottom: 1.8rem;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    border: 1px solid #e0e4e9;
+  }
+  .card-header {
+    font-weight: 800;
+    font-size: 1rem;
+    color: #003b66;
+    border-left: 4px solid #ffb347;
+    padding-left: 12px;
+    margin-bottom: 16px;
+  }
+  .card-header.red {
+    border-left-color: #d32f2f;
+    color: #b91c1c;
+  }
+  .section-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #003b66;
+    border-left: 6px solid #ffb347;
+    padding-left: 15px;
+    margin: 0 0 20px 0;
+  }
+  .form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .field label {
+    font-weight: 600;
+    color: #1e4663;
+    font-size: 0.85rem;
+  }
+  input, select, textarea {
+    padding: 10px 14px;
+    border-radius: 40px;
+    border: 1px solid #cbd5e1;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    transition: 0.2s;
+    background: white;
+  }
+  input:focus, select:focus {
+    outline: none;
+    border-color: #d32f2f;
+    box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.2);
+  }
+  /* TABS */
+  .tabs-wrap {
+    background: #0a2f6c;
+    border-radius: 60px;
+    margin-bottom: 25px;
+    display: inline-flex;
+    padding: 4px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  }
+  .tab-btn {
+    background: transparent;
+    border: none;
+    padding: 10px 28px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    border-radius: 60px;
+    color: rgba(255,255,255,0.7);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .tab-btn.active {
+    background: #d32f2f;
+    color: white;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* checklist table */
+  .checklist-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+  }
+  .checklist-table thead tr {
+    background: #f1f5f9;
+    border-radius: 16px;
+  }
+  .checklist-table th {
+    padding: 12px 8px;
+    text-align: left;
+    font-weight: 700;
+    color: #0a2f6c;
+    border-bottom: 2px solid #e2e8f0;
+  }
+  .checklist-table td {
+    padding: 10px 8px;
+    border-bottom: 1px solid #edf2f7;
+    vertical-align: middle;
+  }
+  .checklist-table tr:hover td {
+    background: #fef9e6;
+  }
+  .aula-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: #e2e8f0;
+    border-radius: 12px;
+    font-weight: 700;
+    color: #1e4663;
+  }
+  .hab-tag {
+    display: inline-block;
+    background: #eef2ff;
+    color: #1e40af;
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 20px;
+    margin: 2px 3px;
+  }
+  .hab-tag.red {
+    background: #fee2e2;
+    color: #b91c1c;
+  }
+  .check-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .check-wrap input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    accent-color: #d32f2f;
+    cursor: pointer;
+  }
+  .bim-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 24px 0 16px;
+  }
+  .bim-pill {
+    background: #0a2f6c;
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    padding: 4px 16px;
+    border-radius: 30px;
+  }
+  .bim-pill.red {
+    background: #d32f2f;
+  }
+  .bim-line {
+    flex: 1;
+    height: 2px;
+    background: #e2e8f0;
+  }
+  .progress-bar-wrap {
+    background: #e2e8f0;
+    border-radius: 12px;
+    height: 10px;
+    overflow: hidden;
+  }
+  .progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #0a2f6c, #d32f2f);
+    width: 0%;
+    border-radius: 12px;
+    transition: width 0.3s;
+  }
+  .progress-label {
+    font-size: 0.75rem;
+    color: #475569;
+    margin-top: 6px;
+    text-align: right;
+  }
+  .sign-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 20px;
+  }
+  .sign-line {
+    border-top: 2px dashed #cbd5e1;
+    padding-top: 8px;
+    font-size: 0.7rem;
+    text-align: center;
+    color: #64748b;
+  }
+  .legend {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    background: #f8fafc;
+    padding: 12px 20px;
+    border-radius: 60px;
+    margin-top: 10px;
+    font-size: 0.7rem;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .legend-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 4px;
+  }
+  .print-btn {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: linear-gradient(135deg, #0a2f6c, #052050);
+    color: white;
+    border: none;
+    border-radius: 60px;
+    padding: 12px 24px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Inter', sans-serif;
+    transition: transform 0.2s;
+    z-index: 10;
+  }
+  .print-btn:hover {
+    background: #d32f2f;
+    transform: translateY(-2px);
+  }
+  footer {
+    text-align: center;
+    margin-top: 2rem;
+    padding: 1rem;
+    color: #b4c8e0;
+    font-size: 0.8rem;
+    border-top: 1px solid #2c4c6e;
+  }
+  @media (max-width: 700px) {
+    .main-container { padding: 12px; }
+    .checklist-table th, .checklist-table td { padding: 6px 4px; font-size: 0.7rem; }
+    .hab-tag { font-size: 0.6rem; }
+    .sign-row { grid-template-columns: 1fr; gap: 16px; }
+    .tabs-wrap { width: 100%; justify-content: center; }
+  }
+  @media print {
+    body { background: white; padding: 0; }
+    .main-container { background: white; padding: 0; box-shadow: none; border: none; }
+    .header { background: #0a2f6c; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .tab-btn, .print-btn { display: none; }
+    .tab-panel { display: block !important; }
+    .tabs-wrap { display: none; }
+    .card { box-shadow: none; border: 1px solid #ddd; }
+    .progress-bar-wrap { background: #e2e8f0; }
+    .progress-bar { background: #0a2f6c; }
+    .checklist-table tr:hover td { background: none; }
+  }
+</style>
+</head>
+<body>
+<div class="main-container">
+  <div class="header">
+    <div class="logo-area">
+      <img src="https://i.ibb.co/0p01LzxB/logo3de.jpg" alt="Logo SEDUC São Paulo">
+      <div class="logo-text">URE CAIEIRAS - Seduc SP</div>
+    </div>
+    <div class="title-badge"><i class="fas fa-check-double"></i> Checklist de Aulas Dadas</div>
+  </div>
+
+  <!-- TABS -->
+  <div style="display: flex; justify-content: center;">
+    <div class="tabs-wrap">
+      <button class="tab-btn active" onclick="switchTab('lp')"><i class="fas fa-book-open"></i> Língua Portuguesa</button>
+      <button class="tab-btn" onclick="switchTab('mat')"><i class="fas fa-calculator"></i> Matemática</button>
+    </div>
+  </div>
+
+  <!-- ABA LP -->
+  <div class="tab-panel active" id="tab-lp">
+    <div class="card">
+      <div class="card-header">Identificação do Professor — Língua Portuguesa</div>
+      <div class="form-grid">
+        <div class="field full"><label>Nome completo do professor(a)</label><input type="text" id="prof-lp" placeholder="Ex.: Maria Souza"></div>
+        <div class="field"><label>Escola</label><input type="text" id="escola-lp" placeholder="Nome da escola"></div>
+        <div class="field"><label>Série</label><select id="serie-lp"><option>3ª série EM</option></select></div>
+        <div class="field"><label>Turma</label><input type="text" id="turma-lp" placeholder="Ex.: A, B, C..."></div>
+        <div class="field"><label>Data de preenchimento</label><input type="date" id="data-lp"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header red">Progresso Geral — LP</div>
+      <div class="progress-bar-wrap"><div class="progress-bar" id="pb-lp"></div></div>
+      <div class="progress-label" id="pl-lp">0 de 56 aulas marcadas</div>
+    </div>
+
+    <!-- 1º BIM LP -->
+    <div class="bim-header"><span class="bim-pill">1º Bimestre</span><div class="bim-line"></div></div>
+    <div class="card" style="padding:0 0 0 0; overflow-x:auto;">
+      <table class="checklist-table">
+        <thead><tr><th style="width:50px">Aula</th><th>Título / Conteúdo</th><th>Habilidades</th><th style="width:70px; text-align:center">Dada?</th></tr></thead>
+        <tbody id="lp-tbody-1"></tbody>
+      </table>
+    </div>
+
+    <!-- 2º BIM LP -->
+    <div class="bim-header"><span class="bim-pill red">2º Bimestre</span><div class="bim-line"></div></div>
+    <div class="card" style="padding:0 0 0 0; overflow-x:auto;">
+      <table class="checklist-table">
+        <thead><tr><th style="width:50px">Aula</th><th>Título / Conteúdo</th><th>Habilidades</th><th style="width:70px; text-align:center">Dada?</th></tr></thead>
+        <tbody id="lp-tbody-2"></tbody>
+      </table>
+    </div>
+
+    <div class="card"><div class="card-header">Assinaturas</div><div class="sign-row"><div class="sign-line">Professor(a)</div><div class="sign-line">Coordenador(a)</div><div class="sign-line">Diretor(a)</div></div></div>
+  </div>
+
+  <!-- ABA MAT -->
+  <div class="tab-panel" id="tab-mat">
+    <div class="card">
+      <div class="card-header">Identificação do Professor — Matemática</div>
+      <div class="form-grid">
+        <div class="field full"><label>Nome completo do professor(a)</label><input type="text" id="prof-mat" placeholder="Ex.: João Silva"></div>
+        <div class="field"><label>Escola</label><input type="text" id="escola-mat" placeholder="Nome da escola"></div>
+        <div class="field"><label>Série</label><select id="serie-mat"><option>3ª série EM</option></select></div>
+        <div class="field"><label>Turma</label><input type="text" id="turma-mat" placeholder="Ex.: A, B, C..."></div>
+        <div class="field"><label>Data de preenchimento</label><input type="date" id="data-mat"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header red">Progresso Geral — Matemática</div>
+      <div class="progress-bar-wrap"><div class="progress-bar" id="pb-mat"></div></div>
+      <div class="progress-label" id="pl-mat">0 de 56 aulas marcadas</div>
+    </div>
+
+    <!-- 1º BIM MAT -->
+    <div class="bim-header"><span class="bim-pill">1º Bimestre</span><div class="bim-line"></div></div>
+    <div class="card" style="padding:0 0 0 0; overflow-x:auto;">
+      <table class="checklist-table"><thead><tr><th style="width:50px">Aula</th><th>Título / Conteúdo</th><th>Habilidades / AE</th><th style="width:70px; text-align:center">Dada?</th></tr></thead><tbody id="mat-tbody-1"></tbody></table>
+    </div>
+
+    <!-- 2º BIM MAT -->
+    <div class="bim-header"><span class="bim-pill red">2º Bimestre</span><div class="bim-line"></div></div>
+    <div class="card" style="padding:0 0 0 0; overflow-x:auto;">
+      <table class="checklist-table"><thead><tr><th style="width:50px">Aula</th><th>Título / Conteúdo</th><th>Habilidades / AE</th><th style="width:70px; text-align:center">Dada?</th></tr></thead><tbody id="mat-tbody-2"></tbody></table>
+    </div>
+
+    <div class="card"><div class="card-header">Assinaturas</div><div class="sign-row"><div class="sign-line">Professor(a)</div><div class="sign-line">Coordenador(a)</div><div class="sign-line">Diretor(a)</div></div></div>
+  </div>
+
+  <div class="legend">
+    <span style="font-weight:700;">LEGENDA:</span>
+    <div class="legend-item"><div class="legend-dot" style="background:#e2e8f0;"></div><span>Aula regular</span></div>
+    <div class="legend-item"><div class="legend-dot" style="background:#f59e0b;"></div><span>Verificação</span></div>
+    <div class="legend-item"><div class="legend-dot" style="background:#0a2f6c;"></div><span>Revisão</span></div>
+    <div class="legend-item"><div class="legend-dot" style="background:#16a34a;"></div><span>Complementar</span></div>
+  </div>
+  <footer><i class="fas fa-check-circle"></i> URE CAIEIRAS - Checklist de Aulas Dadas | Alinhado ao Currículo Seduc SP</footer>
+</div>
+<button class="print-btn" onclick="window.print()"><i class="fas fa-print"></i> Imprimir / Salvar PDF</button>
+
+<script>
+  // Dados estruturados para Língua Portuguesa (1º e 2º bim)
+  const lpData = {
+    b1: [
+      { aula:1, titulo:"Entenda o Pré-modernismo<br><small>Euclides da Cunha, Lima Barreto, Augusto dos Anjos</small>", hab:"EM13LGG101, EM13LP48", tipo:"reg" },
+      { aula:2, titulo:"Quem são os modernistas?<br><small>Poética de Oswald de Andrade · Ortografia</small>", hab:"EM13LP52", tipo:"reg" },
+      { aula:3, titulo:"Manifesto Antropófago<br><small>Conceito de manifesto e antropofagia</small>", hab:"EM13LP49", tipo:"reg" },
+      { aula:4, titulo:"Penso, logo me expresso<br><small>Artigo de opinião · Elementos coesivos</small>", hab:"EM13LGG303, EM13LP02C", tipo:"reg" },
+      { aula:5, titulo:"Movimentos argumentativos<br><small>Tese, argumentos, refutação · Orações coordenadas</small>", hab:"EM13LGG303, EM13LP15", tipo:"reg" },
+      { aula:6, titulo:"Compartilhando descobertas<br><small>Textos de divulgação científica · Fidedignidade</small>", hab:"EM13LP32B", tipo:"reg" },
+      { aula:7, titulo:"A construção da opinião com a voz de um jornal – Pt.1<br><small>Editorial · Reflexão crítica</small>", hab:"EM13LP36", tipo:"reg" },
+      { aula:8, titulo:"A construção da opinião com a voz de um jornal – Pt.2<br><small>Orações coordenadas sindéticas</small>", hab:"EM13LP08", tipo:"reg" },
+      { aula:9, titulo:"Novas formas de convencer você – Pt.1<br><small>Publicidade digital · Mecanismos de persuasão</small>", hab:"EM13LP44A", tipo:"reg" },
+      { aula:10, titulo:"Novas formas de convencer você – Pt.2<br><small>Paralelismo sintático</small>", hab:"EM13LP08", tipo:"reg" },
+      { aula:11, titulo:"Romances românticos<br><small>Iracema e Senhora · José de Alencar</small>", hab:"EM13LP50", tipo:"reg" },
+      { aula:12, titulo:"Romances realistas<br><small>Dom Casmurro · Machado de Assis</small>", hab:"EM13LP50", tipo:"reg" },
+      { aula:13, titulo:"Romantismo × Realismo – Pt.1<br><small>Comparação de forma e conteúdo</small>", hab:"EM13LP50", tipo:"reg" },
+      { aula:14, titulo:"Romantismo × Realismo – Pt.2<br><small>Figuras de linguagem: metonímia e sinestesia</small>", hab:"EM13LP08", tipo:"reg" },
+      { aula:15, titulo:"Entre versos e vozes – Pt.1<br><small>Poemas · Literaturas portuguesa, africana, indígena</small>", hab:"EM13LP52", tipo:"reg" },
+      { aula:16, titulo:"Entre versos e vozes – Pt.2<br><small>Comparação de literaturas · Contexto</small>", hab:"EM13LP52", tipo:"reg" },
+      { aula:17, titulo:"Contos séc. XIX: Machado de Assis – Pt.1<br><small>'Pai contra mãe' · Contexto histórico</small>", hab:"EM13LP52", tipo:"reg" },
+      { aula:18, titulo:"Contos séc. XIX: Machado de Assis – Pt.2<br><small>Retomada · Análise de contexto</small>", hab:"EM13LP52", tipo:"reg" },
+      { aula:19, titulo:"Contos séc. XIX – Pt.1<br><small>Leitura e compreensão · Efeitos de sentido</small>", hab:"EM13LP52", tipo:"reg" },
+      { aula:20, titulo:"Contos séc. XIX – Pt.2<br><small>Personificação · Aluísio Azevedo</small>", hab:"EM13LP52", tipo:"reg" },
+      { aula:21, titulo:"Contos séc. XX: Guimarães Rosa – Pt.1<br><small>Efeitos de sentido · Semiótica</small>", hab:"EM13LP52", tipo:"reg" },
+      { aula:22, titulo:"Contos séc. XX: Guimarães Rosa – Pt.2<br><small>Variação linguística · Contexto</small>", hab:"EM13LP52", tipo:"reg" },
+      { aula:23, titulo:"Contos séc. XX: Lygia F. Telles – Pt.1<br><small>Efeitos de sentido · Análise de trechos</small>", hab:"EM13LP52", tipo:"reg" },
+      { aula:24, titulo:"Contos séc. XX: Lygia F. Telles – Pt.2<br><small>Efeitos de sentido · Intertextualidade</small>", hab:"EM13LP08", tipo:"reg" },
+      { aula:25, titulo:"Notícias que impactam – Pt.1<br><small>Leitura de notícia · Comparação de manchetes</small>", hab:"EM13LGG102", tipo:"reg" },
+      { aula:26, titulo:"Notícias que impactam – Pt.2<br><small>Estrutura do gênero notícia · Pontuação</small>", hab:"EM13LP08", tipo:"reg" },
+      { aula:27, titulo:"Desconstruindo a reportagem – Pt.1<br><small>Vozes no texto · Regência verbal e nominal</small>", hab:"EM13LP42", tipo:"reg" },
+      { aula:28, titulo:"Desconstruindo a reportagem – Pt.2<br><small>Operadores lógico-discursivos</small>", hab:"EM13LP08", tipo:"reg" }
+    ],
+    b2: [
+      { aula:1, titulo:"Por dentro das normas – Pt.1<br><small>Estatuto da Pessoa Idosa · Texto normativo</small>", hab:"EM13LP26C", tipo:"reg" },
+      { aula:2, titulo:"Por dentro das normas – Pt.2<br><small>Ordem direta e inversões em textos legais</small>", hab:"EM13LP08", tipo:"reg" },
+      { aula:3, titulo:"Textos contemporâneos na construção da opinião – Pt.1<br><small>Artigo de opinião · Estratégias argumentativas</small>", hab:"EM13LP02C", tipo:"reg" },
+      { aula:4, titulo:"Textos contemporâneos na construção da opinião – Pt.2<br><small>Conjunções e elementos coesivos</small>", hab:"EM13LP08", tipo:"reg" },
+      { aula:5, titulo:"Textos contemporâneos na construção da opinião – Pt.3<br><small>Fato × opinião · Relações lógico-discursivas</small>", hab:"EM13LP02C", tipo:"reg" },
+      { aula:6, titulo:"Textos contemporâneos na construção da opinião – Pt.4<br><small>Regência verbal e nominal</small>", hab:"EM13LP08", tipo:"reg" },
+      { aula:7, titulo:"Oralidade: Entrevista – Pt.1<br><small>Estrutura da entrevista · Variação linguística</small>", hab:"EM13LP10", tipo:"reg" },
+      { aula:8, titulo:"Oralidade: Entrevista – Pt.2<br><small>Marcas de oralidade · Tipos de transcrição</small>", hab:"EM13LGG401", tipo:"reg" },
+      { aula:9, titulo:"O que o texto revela <em>(Aula complementar)</em><br><small>Poemas sécs. XVIII e XIX · Análise semiótica</small>", hab:"EM13LP48", tipo:"comp" },
+      { aula:10, titulo:"Os movimentos da literatura: influências e inovações <em>(Complementar)</em><br><s
