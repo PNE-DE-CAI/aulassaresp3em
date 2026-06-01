@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -86,14 +85,6 @@
     border-left-color: #d32f2f;
     color: #b91c1c;
   }
-  .section-title {
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: #003b66;
-    border-left: 6px solid #ffb347;
-    padding-left: 15px;
-    margin: 0 0 20px 0;
-  }
   .form-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -110,7 +101,7 @@
     color: #1e4663;
     font-size: 0.85rem;
   }
-  input, select, textarea {
+  input, select {
     padding: 10px 14px;
     border-radius: 40px;
     border: 1px solid #cbd5e1;
@@ -175,9 +166,11 @@
     border-bottom: 1px solid #edf2f7;
     vertical-align: middle;
   }
-  .checklist-table tr:hover td {
-    background: #fef9e6;
-  }
+  /* Estilos para linhas especiais */
+  .checklist-table tr.verif td { background-color: #fff8e1; }
+  .checklist-table tr.rev td { background-color: #eef2fa; }
+  .checklist-table tr.comp td { background-color: #f0fdf4; }
+  .checklist-table tr:hover td { background: #fef9e6; }
   .aula-num {
     display: inline-flex;
     align-items: center;
@@ -335,9 +328,6 @@
     .tab-panel { display: block !important; }
     .tabs-wrap { display: none; }
     .card { box-shadow: none; border: 1px solid #ddd; }
-    .progress-bar-wrap { background: #e2e8f0; }
-    .progress-bar { background: #0a2f6c; }
-    .checklist-table tr:hover td { background: none; }
   }
 </style>
 </head>
@@ -351,7 +341,6 @@
     <div class="title-badge"><i class="fas fa-check-double"></i> Checklist de Aulas Dadas</div>
   </div>
 
-  <!-- TABS -->
   <div style="display: flex; justify-content: center;">
     <div class="tabs-wrap">
       <button class="tab-btn active" onclick="switchTab('lp')"><i class="fas fa-book-open"></i> Língua Portuguesa</button>
@@ -364,38 +353,32 @@
     <div class="card">
       <div class="card-header">Identificação do Professor — Língua Portuguesa</div>
       <div class="form-grid">
-        <div class="field full"><label>Nome completo do professor(a)</label><input type="text" id="prof-lp" placeholder="Ex.: Maria Souza"></div>
+        <div class="field"><label>Nome completo</label><input type="text" id="prof-lp" placeholder="Ex.: Maria Souza"></div>
         <div class="field"><label>Escola</label><input type="text" id="escola-lp" placeholder="Nome da escola"></div>
         <div class="field"><label>Série</label><select id="serie-lp"><option>3ª série EM</option></select></div>
         <div class="field"><label>Turma</label><input type="text" id="turma-lp" placeholder="Ex.: A, B, C..."></div>
-        <div class="field"><label>Data de preenchimento</label><input type="date" id="data-lp"></div>
+        <div class="field"><label>Data</label><input type="date" id="data-lp"></div>
       </div>
     </div>
-
     <div class="card">
       <div class="card-header red">Progresso Geral — LP</div>
       <div class="progress-bar-wrap"><div class="progress-bar" id="pb-lp"></div></div>
       <div class="progress-label" id="pl-lp">0 de 56 aulas marcadas</div>
     </div>
-
-    <!-- 1º BIM LP -->
     <div class="bim-header"><span class="bim-pill">1º Bimestre</span><div class="bim-line"></div></div>
-    <div class="card" style="padding:0 0 0 0; overflow-x:auto;">
+    <div class="card" style="padding:0; overflow-x:auto;">
       <table class="checklist-table">
         <thead><tr><th style="width:50px">Aula</th><th>Título / Conteúdo</th><th>Habilidades</th><th style="width:70px; text-align:center">Dada?</th></tr></thead>
         <tbody id="lp-tbody-1"></tbody>
       </table>
     </div>
-
-    <!-- 2º BIM LP -->
     <div class="bim-header"><span class="bim-pill red">2º Bimestre</span><div class="bim-line"></div></div>
-    <div class="card" style="padding:0 0 0 0; overflow-x:auto;">
+    <div class="card" style="padding:0; overflow-x:auto;">
       <table class="checklist-table">
         <thead><tr><th style="width:50px">Aula</th><th>Título / Conteúdo</th><th>Habilidades</th><th style="width:70px; text-align:center">Dada?</th></tr></thead>
         <tbody id="lp-tbody-2"></tbody>
       </table>
     </div>
-
     <div class="card"><div class="card-header">Assinaturas</div><div class="sign-row"><div class="sign-line">Professor(a)</div><div class="sign-line">Coordenador(a)</div><div class="sign-line">Diretor(a)</div></div></div>
   </div>
 
@@ -404,32 +387,32 @@
     <div class="card">
       <div class="card-header">Identificação do Professor — Matemática</div>
       <div class="form-grid">
-        <div class="field full"><label>Nome completo do professor(a)</label><input type="text" id="prof-mat" placeholder="Ex.: João Silva"></div>
+        <div class="field"><label>Nome completo</label><input type="text" id="prof-mat" placeholder="Ex.: João Silva"></div>
         <div class="field"><label>Escola</label><input type="text" id="escola-mat" placeholder="Nome da escola"></div>
         <div class="field"><label>Série</label><select id="serie-mat"><option>3ª série EM</option></select></div>
         <div class="field"><label>Turma</label><input type="text" id="turma-mat" placeholder="Ex.: A, B, C..."></div>
-        <div class="field"><label>Data de preenchimento</label><input type="date" id="data-mat"></div>
+        <div class="field"><label>Data</label><input type="date" id="data-mat"></div>
       </div>
     </div>
-
     <div class="card">
       <div class="card-header red">Progresso Geral — Matemática</div>
       <div class="progress-bar-wrap"><div class="progress-bar" id="pb-mat"></div></div>
       <div class="progress-label" id="pl-mat">0 de 56 aulas marcadas</div>
     </div>
-
-    <!-- 1º BIM MAT -->
     <div class="bim-header"><span class="bim-pill">1º Bimestre</span><div class="bim-line"></div></div>
-    <div class="card" style="padding:0 0 0 0; overflow-x:auto;">
-      <table class="checklist-table"><thead><tr><th style="width:50px">Aula</th><th>Título / Conteúdo</th><th>Habilidades / AE</th><th style="width:70px; text-align:center">Dada?</th></tr></thead><tbody id="mat-tbody-1"></tbody></table>
+    <div class="card" style="padding:0; overflow-x:auto;">
+      <table class="checklist-table">
+        <thead><tr><th style="width:50px">Aula</th><th>Título / Conteúdo</th><th>Habilidades / AE</th><th style="width:70px; text-align:center">Dada?</th></tr></thead>
+        <tbody id="mat-tbody-1"></tbody>
+      </table>
     </div>
-
-    <!-- 2º BIM MAT -->
     <div class="bim-header"><span class="bim-pill red">2º Bimestre</span><div class="bim-line"></div></div>
-    <div class="card" style="padding:0 0 0 0; overflow-x:auto;">
-      <table class="checklist-table"><thead><tr><th style="width:50px">Aula</th><th>Título / Conteúdo</th><th>Habilidades / AE</th><th style="width:70px; text-align:center">Dada?</th></tr></thead><tbody id="mat-tbody-2"></tbody></table>
+    <div class="card" style="padding:0; overflow-x:auto;">
+      <table class="checklist-table">
+        <thead><tr><th style="width:50px">Aula</th><th>Título / Conteúdo</th><th>Habilidades / AE</th><th style="width:70px; text-align:center">Dada?</th></tr></thead>
+        <tbody id="mat-tbody-2"></tbody>
+      </table>
     </div>
-
     <div class="card"><div class="card-header">Assinaturas</div><div class="sign-row"><div class="sign-line">Professor(a)</div><div class="sign-line">Coordenador(a)</div><div class="sign-line">Diretor(a)</div></div></div>
   </div>
 
@@ -445,7 +428,7 @@
 <button class="print-btn" onclick="window.print()"><i class="fas fa-print"></i> Imprimir / Salvar PDF</button>
 
 <script>
-  // Dados estruturados para Língua Portuguesa (1º e 2º bim)
+  // Dados completos de Língua Portuguesa (1º e 2º bimestres)
   const lpData = {
     b1: [
       { aula:1, titulo:"Entenda o Pré-modernismo<br><small>Euclides da Cunha, Lima Barreto, Augusto dos Anjos</small>", hab:"EM13LGG101, EM13LP48", tipo:"reg" },
@@ -487,4 +470,164 @@
       { aula:7, titulo:"Oralidade: Entrevista – Pt.1<br><small>Estrutura da entrevista · Variação linguística</small>", hab:"EM13LP10", tipo:"reg" },
       { aula:8, titulo:"Oralidade: Entrevista – Pt.2<br><small>Marcas de oralidade · Tipos de transcrição</small>", hab:"EM13LGG401", tipo:"reg" },
       { aula:9, titulo:"O que o texto revela <em>(Aula complementar)</em><br><small>Poemas sécs. XVIII e XIX · Análise semiótica</small>", hab:"EM13LP48", tipo:"comp" },
-      { aula:10, titulo:"Os movimentos da literatura: influências e inovações <em>(Complementar)</em><br><s
+      { aula:10, titulo:"Os movimentos da literatura: influências e inovações <em>(Complementar)</em><br><small>Rupturas e inovações ao longo da história</small>", hab:"EM13LP48", tipo:"comp" },
+      { aula:11, titulo:"Vanguardas europeias<br><small>Características e rupturas das vanguardas</small>", hab:"EM13LGG602, EM13LP50", tipo:"reg" },
+      { aula:12, titulo:"Semana de Arte Moderna<br><small>Manuel Bandeira · Rupturas com a norma-padrão</small>", hab:"EM13LGG601, EM13LP49", tipo:"reg" },
+      { aula:13, titulo:"Primeira geração modernista – Pt.1<br><small>Mário de Andrade · Características</small>", hab:"EM13LGG601, EM13LP49", tipo:"reg" },
+      { aula:14, titulo:"Primeira geração modernista – Pt.2<br><small>Oswald de Andrade</small>", hab:"EM13LGG601, EM13LP49", tipo:"reg" },
+      { aula:15, titulo:"Segunda geração modernista: Poesia de 30 – Pt.1<br><small>Carlos Drummond de Andrade</small>", hab:"EM13LP49", tipo:"reg" },
+      { aula:16, titulo:"Segunda geração modernista: Poesia de 30 – Pt.2<br><small>Murilo Mendes</small>", hab:"EM13LP49", tipo:"reg" },
+      { aula:17, titulo:"Segunda geração modernista: Prosa de 30 – Pt.1<br><small>Rachel de Queiroz · O quinze</small>", hab:"EM13LP48", tipo:"reg" },
+      { aula:18, titulo:"Segunda geração modernista: Prosa de 30 – Pt.2<br><small>Graciliano Ramos · Vidas Secas</small>", hab:"EM13LP48", tipo:"reg" },
+      { aula:19, titulo:"Segunda geração modernista: Prosa de 30 – Pt.3<br><small>Jorge Amado · Capitães da Areia</small>", hab:"EM13LP48", tipo:"reg" },
+      { aula:20, titulo:"Visões diversas em editoriais – Pt.1<br><small>Leitura e análise de editorial</small>", hab:"EM13LP37A", tipo:"reg" },
+      { aula:21, titulo:"Visões diversas em editoriais – Pt.2<br><small>Modalização textual · Orações subordinadas adjetivas</small>", hab:"EM13LP07", tipo:"reg" },
+      { aula:22, titulo:"Visões diversas em editoriais – Pt.3<br><small>Escolhas editoriais e tratamento das informações</small>", hab:"EM13LP37A", tipo:"reg" },
+      { aula:23, titulo:"Visões diversas em editoriais – Pt.4<br><small>Modalização · Orações subordinadas adverbiais</small>", hab:"EM13LP07", tipo:"reg" },
+      { aula:24, titulo:"Desvendando o gênero crônica – Pt.1<br><small>Leitura e análise · Efeitos de sentido</small>", hab:"EM13LP49", tipo:"reg" },
+      { aula:25, titulo:"Desvendando o gênero crônica – Pt.2<br><small>Estratégias linguísticas · Contexto sociocultural</small>", hab:"EM13LP49", tipo:"reg" },
+      { aula:26, titulo:"Desvendando o gênero crônica – Pt.3<br><small>Intertextualidade · Polissemia</small>", hab:"EM13LP03", tipo:"reg" },
+      { aula:27, titulo:"A charge como texto literário – Pt.1 <em>(Complementar)</em><br><small>Análise de charges · Crítica social</small>", hab:"EM13LGG202, EM13LP06", tipo:"comp" },
+      { aula:28, titulo:"A charge como texto literário – Pt.2 <em>(Complementar)</em><br><small>Linguagem verbal, não-verbal e mista</small>", hab:"EM13LGG104, EM13LP03", tipo:"comp" }
+    ]
+  };
+
+  // Dados de Matemática (1º e 2º bimestres)
+  const matData = {
+    b1: [
+      { aula:1, titulo:"Equações do 1º grau e proporcionalidade", hab:"AE1 · EF07MA18", tipo:"reg" },
+      { aula:2, titulo:"Problemas com equações do 1º grau", hab:"AE1 · EF07MA18", tipo:"reg" },
+      { aula:3, titulo:"Problemas com equações incompletas do 2º grau", hab:"AE1 · EF08MA09", tipo:"reg" },
+      { aula:4, titulo:"Revisão: Equações do 1º e 2º graus", hab:"AE1 · EF07MA18, EF08MA09", tipo:"rev" },
+      { aula:5, titulo:"Problemas com equações completas do 2º grau", hab:"AE1 · EF09MA09", tipo:"reg" },
+      { aula:6, titulo:"A fórmula resolutiva (Bhaskara)", hab:"AE1 · EF09MA09", tipo:"reg" },
+      { aula:7, titulo:"Problemas cotidianos com equações", hab:"AE1 · EF07MA18, EF09MA09", tipo:"reg" },
+      { aula:8, titulo:"Aula de verificação: Equações do 2º grau", hab:"AE1 · EF09MA09", tipo:"verif" },
+      { aula:9, titulo:"Sistemas lineares: 2 eq. 2 incógnitas", hab:"AE2 · EM13MAT301", tipo:"reg" },
+      { aula:10, titulo:"Sistema linear: método da substituição", hab:"AE2 · EM13MAT301", tipo:"reg" },
+      { aula:11, titulo:"Sistema linear: método da adição", hab:"AE2 · EM13MAT301", tipo:"reg" },
+      { aula:12, titulo:"Revisão: Sistemas 2x2", hab:"AE2 · EM13MAT301", tipo:"rev" },
+      { aula:13, titulo:"Interpretação geométrica de sistema", hab:"AE2 · EM13MAT301", tipo:"reg" },
+      { aula:14, titulo:"Discussão de sistema linear", hab:"AE2 · EM13MAT301", tipo:"reg" },
+      { aula:15, titulo:"Problemas com sistemas 2x2", hab:"AE2 · EM13MAT301", tipo:"reg" },
+      { aula:16, titulo:"Verificação: Sistemas lineares 2x2", hab:"AE2 · EM13MAT301", tipo:"verif" },
+      { aula:17, titulo:"Sistemas 3×3", hab:"AE2 · EM13MAT301", tipo:"reg" },
+      { aula:18, titulo:"Método do escalonamento – Pt.1", hab:"AE2 · EM13MAT301", tipo:"reg" },
+      { aula:19, titulo:"Método do escalonamento – Pt.2", hab:"AE2 · EM13MAT301", tipo:"reg" },
+      { aula:20, titulo:"Revisão: Sistemas 3x3", hab:"AE2 · EM13MAT301", tipo:"rev" },
+      { aula:21, titulo:"Classificação de sistemas (SPD, SPI, SI)", hab:"AE2 · EM13MAT301", tipo:"reg" },
+      { aula:22, titulo:"Classificação – continuação", hab:"AE2 · EM13MAT301", tipo:"reg" },
+      { aula:23, titulo:"Problemas com sistemas 3x3", hab:"AE2 · EM13MAT301", tipo:"reg" },
+      { aula:24, titulo:"Verificação: Sistema linear 3x3", hab:"AE2 · EM13MAT301", tipo:"verif" },
+      { aula:25, titulo:"Revisão: Equações 1º/2º grau", hab:"EF09MA09", tipo:"rev" },
+      { aula:26, titulo:"Revisão: Sistemas 2x2", hab:"EF08MA08", tipo:"rev" },
+      { aula:27, titulo:"Revisão: Sistemas 3x3", hab:"EM13MAT301", tipo:"rev" },
+      { aula:28, titulo:"Revisão geral: Métodos de sistemas", hab:"EM13MAT301", tipo:"rev" }
+    ],
+    b2: [
+      { aula:1, titulo:"Princípio multiplicativo da contagem", hab:"AE3 · EM13MAT310", tipo:"reg" },
+      { aula:2, titulo:"Permutações simples", hab:"AE3 · EM13MAT310", tipo:"reg" },
+      { aula:3, titulo:"Arranjos simples", hab:"AE3 · EM13MAT310", tipo:"reg" },
+      { aula:4, titulo:"Revisão: Problemas de contagem", hab:"AE3 · EM13MAT310", tipo:"rev" },
+      { aula:5, titulo:"Combinações simples", hab:"AE3 · EM13MAT310", tipo:"reg" },
+      { aula:6, titulo:"Permutação, Arranjo e Combinação", hab:"AE3 · EM13MAT310", tipo:"reg" },
+      { aula:7, titulo:"Problemas de Análise Combinatória", hab:"AE3 · EM13MAT310", tipo:"reg" },
+      { aula:8, titulo:"Verificação: Análise Combinatória", hab:"AE3 · EM13MAT310", tipo:"verif" },
+      { aula:9, titulo:"Noções de probabilidade", hab:"AE4 · EF06MA30", tipo:"reg" },
+      { aula:10, titulo:"Espaço amostral e eventos", hab:"AE4 · EM13MAT311", tipo:"reg" },
+      { aula:11, titulo:"Cálculo da probabilidade – Pt.1", hab:"AE4 · EM13MAT311", tipo:"reg" },
+      { aula:12, titulo:"Revisão: Conceito de probabilidade", hab:"AE4 · EM13MAT311", tipo:"rev" },
+      { aula:13, titulo:"Probabilidade – Pt.2 (eventos complementares)", hab:"AE4 · EM13MAT311", tipo:"reg" },
+      { aula:14, titulo:"Probabilidade com Análise Combinatória", hab:"AE4 · EM13MAT311", tipo:"reg" },
+      { aula:15, titulo:"Características do cálculo de probabilidades", hab:"AE4 · EM13MAT311", tipo:"reg" },
+      { aula:16, titulo:"Resolução de problemas de probabilidade", hab:"AE4 · EM13MAT311", tipo:"reg" },
+      { aula:17, titulo:"Probabilidade e Análise Combinatória", hab:"AE4 · EM13MAT311", tipo:"reg" },
+      { aula:18, titulo:"Adição de probabilidades – Pt.1", hab:"AE5 · EM13MAT312", tipo:"reg" },
+      { aula:19, titulo:"Adição de probabilidades – Pt.2", hab:"AE5 · EM13MAT312", tipo:"reg" },
+      { aula:20, titulo:"Revisão: Eventos e probabilidades", hab:"AE5 · EM13MAT312", tipo:"rev" },
+      { aula:21, titulo:"Probabilidade condicional", hab:"AE5 · EM13MAT312", tipo:"reg" },
+      { aula:22, titulo:"Multiplicação de probabilidades", hab:"AE5 · EM13MAT312", tipo:"reg" },
+      { aula:23, titulo:"Problemas com eventos sucessivos", hab:"AE5 · EM13MAT312", tipo:"reg" },
+      { aula:24, titulo:"Verificação: Cálculo de probabilidades", hab:"AE5 · EM13MAT312", tipo:"verif" },
+      { aula:25, titulo:"Revisão: Análise Combinatória (Complementar)", hab:"EM13MAT310", tipo:"comp" },
+      { aula:26, titulo:"Revisão: Probabilidade – Pt.1 (Complementar)", hab:"EM13MAT312", tipo:"comp" },
+      { aula:27, titulo:"Revisão: Probabilidade – Pt.2 (Complementar)", hab:"EM13MAT312", tipo:"comp" },
+      { aula:28, titulo:"Revisão: Eventos independentes (Complementar)", hab:"EM13MAT312", tipo:"comp" }
+    ]
+  };
+
+  // Função para renderizar tabelas
+  function renderTable(targetId, data, prefix) {
+    const tbody = document.getElementById(targetId);
+    if (!tbody) return;
+    tbody.innerHTML = '';
+    data.forEach(item => {
+      const tr = document.createElement('tr');
+      let rowClass = '';
+      if (item.tipo === 'verif') rowClass = 'verif';
+      else if (item.tipo === 'rev') rowClass = 'rev';
+      else if (item.tipo === 'comp') rowClass = 'comp';
+      if (rowClass) tr.classList.add(rowClass);
+      
+      // Construir habilidades como spans
+      const habs = item.hab.split(',').map(h => `<span class="hab-tag ${item.tipo === 'verif' ? 'red' : ''}">${h.trim()}</span>`).join('');
+      
+      tr.innerHTML = `
+        <td class="center"><span class="aula-num">${item.aula}</span></td>
+        <td class="conteudo-text">${item.titulo}</td>
+        <td>${habs}</td>
+        <td class="center"><div class="check-wrap"><input type="checkbox" class="${prefix}-check"></div></td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+
+  // Renderizar todas as tabelas
+  renderTable('lp-tbody-1', lpData.b1, 'lp');
+  renderTable('lp-tbody-2', lpData.b2, 'lp');
+  renderTable('mat-tbody-1', matData.b1, 'mat');
+  renderTable('mat-tbody-2', matData.b2, 'mat');
+
+  // Atualizar progresso
+  function updateProgress(cls, pbId, plId, total) {
+    const checks = document.querySelectorAll('.' + cls + ':checked');
+    const checked = checks.length;
+    const pct = Math.round((checked / total) * 100);
+    const pb = document.getElementById(pbId);
+    if (pb) pb.style.width = pct + '%';
+    const pl = document.getElementById(plId);
+    if (pl) pl.textContent = checked + ' de ' + total + ' aulas marcadas (' + pct + '%)';
+  }
+
+  // Adicionar listeners após renderização
+  function bindCheckEvents() {
+    document.querySelectorAll('.lp-check').forEach(cb => {
+      cb.removeEventListener('change', lpHandler);
+      cb.addEventListener('change', lpHandler);
+    });
+    document.querySelectorAll('.mat-check').forEach(cb => {
+      cb.removeEventListener('change', matHandler);
+      cb.addEventListener('change', matHandler);
+    });
+  }
+  const lpHandler = () => updateProgress('lp-check', 'pb-lp', 'pl-lp', 56);
+  const matHandler = () => updateProgress('mat-check', 'pb-mat', 'pl-mat', 56);
+  
+  bindCheckEvents();
+  updateProgress('lp-check', 'pb-lp', 'pl-lp', 56);
+  updateProgress('mat-check', 'pb-mat', 'pl-mat', 56);
+
+  // Função para trocar abas
+  window.switchTab = function(tab) {
+    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(panel => panel.classList.remove('active'));
+    document.getElementById('tab-' + tab).classList.add('active');
+    // Atualizar event listeners após troca (caso necessário)
+    bindCheckEvents();
+    updateProgress('lp-check', 'pb-lp', 'pl-lp', 56);
+    updateProgress('mat-check', 'pb-mat', 'pl-mat', 56);
+  };
+</script>
+</body>
+</html>
+```
